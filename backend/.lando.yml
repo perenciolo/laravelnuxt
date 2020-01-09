@@ -1,0 +1,12 @@
+name: nuxt-ssr-laravel-backend
+recipe: laravel
+# Configure the laravel recipe
+config:
+  php: "7.2"
+  webroot: public
+  xdebug: false
+
+services:
+  database:
+    type: mariadb:10.3
+    portforward: 3307
