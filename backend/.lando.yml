@@ -10,3 +10,7 @@ services:
   database:
     type: mariadb:10.3
     portforward: 3307
+
+events:
+  post-start:
+    - appserver: artisan migrate
