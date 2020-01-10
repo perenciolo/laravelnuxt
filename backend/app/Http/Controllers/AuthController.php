@@ -3,24 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRegisterRequest;
+use App\Http\Resources\User as UserResource;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(UserRegisterRequest $request)
     {
-        $this->validate($request, [
-            'email' => 'email|required|unique:users,email',
-            'name' => 'required',
-            'password' => 'required|min:6'
-        ]);
-
         $user = User::create([
             'email' => $request->email,
             'name' => $request->name,
             'password' => bcrypt($request->password),
         ]);
 
-        return $user;
+        if (!$token = auth()->attempt($request->only(['email', 'password']))) {
+            return abort(401);
+        }
+
+        return (new UserResource($request->user()))
+            ->additional([
+                'meta' => [
+                    'token' => $token,
+                ]
+            ]);
     }
 }

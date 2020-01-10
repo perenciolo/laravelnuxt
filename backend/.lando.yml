@@ -13,4 +13,4 @@ services:
 
 events:
   post-start:
-    - appserver: artisan migrate
+    - appserver: php artisan migrate
