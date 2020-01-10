@@ -47,10 +47,20 @@ export default {
    ** Global CSS
    */
   css: [],
+  /**
+   * Router
+   */
+  router: {
+    middleware: ['clearValidationErrors']
+  },
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['./plugins/mixins/user.js'],
+  plugins: [
+    './plugins/mixins/user.js',
+    './plugins/axios.js',
+    './plugins/mixins/validation.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -73,7 +83,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://nuxtssrlaravelbackend.lndo.site:8000/api'
+    baseURL: 'http://nuxtssrlaravelbackend.lndo.site/api'
   },
   /**
    * Auth endpoints configuration

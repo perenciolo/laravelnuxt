@@ -14,9 +14,22 @@
           placeholder="Seu email"
           autofocus
         />
-        <small id="emailHelp" class="form-text text-muted"
-          >Nunca vamos compartilhar seu email, com ninguém.</small
+        <small
+          id="emailHelp"
+          :class="[
+            errors && errors.email ? 'text-danger' : 'text-muted',
+            'form-text'
+          ]"
         >
+          <template v-if="!errors || !errors.email">
+            Nunca vamos compartilhar seu email, com ninguém.
+          </template>
+          <template v-if="errors && errors.email">
+            <div v-for="(err, idx) in errors.email" :key="idx">
+              {{ err }}
+            </div>
+          </template>
+        </small>
       </div>
       <div class="form-group">
         <label for="log-pass">Senha</label>
@@ -27,6 +40,19 @@
           class="form-control"
           placeholder="Senha"
         />
+        <small
+          id="passwordHelp"
+          :class="[
+            errors && errors.password ? 'text-danger' : 'text-muted',
+            'form-text'
+          ]"
+        >
+          <template v-if="errors && errors.password">
+            <div v-for="(err, idx) in errors.password" :key="idx">
+              {{ err }}
+            </div>
+          </template>
+        </small>
       </div>
       <div class="form-group form-check">
         <input id="log-save" type="checkbox" class="form-check-input" />
@@ -43,6 +69,7 @@
 
 <script>
 export default {
+  middleware: ['guest'],
   data() {
     return {
       form: {
@@ -53,11 +80,15 @@ export default {
   },
   methods: {
     async submit() {
-      await this.$auth.loginWith('local', {
-        data: this.form
-      })
+      try {
+        await this.$auth.loginWith('local', {
+          data: this.form
+        })
 
-      this.$router.push('/')
+        this.$router.push({
+          path: this.$route.query.redirect || '/profile'
+        })
+      } catch (error) {}
     }
   }
 }
