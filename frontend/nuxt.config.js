@@ -50,7 +50,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['./plugins/mixins/user.js'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -73,7 +73,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://nuxtssrlaravelbackend.lndo.site/api'
+    baseURL: 'http://nuxtssrlaravelbackend.lndo.site:8000/api'
   },
   /**
    * Auth endpoints configuration
