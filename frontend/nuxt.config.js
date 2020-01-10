@@ -65,13 +65,41 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'http://nuxtssrlaravelbackend.lndo.site/api'
+  },
+  /**
+   * Auth endpoints configuration
+   */
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'login',
+            method: 'post',
+            propertyName: 'meta.token'
+          },
+          user: {
+            url: 'user',
+            method: 'get',
+            propertyName: 'data'
+          },
+          logout: {
+            url: 'logout',
+            method: 'post'
+          }
+        }
+      }
+    }
+  },
   /*
    ** Build configuration
    */
