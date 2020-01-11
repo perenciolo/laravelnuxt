@@ -18,7 +18,7 @@
           <nuxt-link to="/" class="nav-link">Home</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/" class="nav-link">Posts</nuxt-link>
+          <nuxt-link to="/profile" class="nav-link">Create Posts</nuxt-link>
         </li>
         <li class="nav-item">
           <nuxt-link to="/" class="nav-link">Blog</nuxt-link>
